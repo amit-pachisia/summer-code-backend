@@ -1,7 +1,3 @@
-const JWT_SECRET = 'This is a sample secret!!!';
-
-const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
 const SAMPLE_USER_DATA = {
   firstName: 'John',
   lastName: 'Doe',
@@ -73,4 +69,4 @@ const SAMPLE_USER_DATA = {
   ],
 };
 
-module.exports = { EMAIL_REGEX, JWT_SECRET, SAMPLE_USER_DATA };
+module.exports = { SAMPLE_USER_DATA };
