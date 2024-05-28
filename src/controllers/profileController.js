@@ -18,3 +18,5 @@ const createProfile = async (req, res) => {
         res.send({ error: true, message });
     }
 };
+
+module.exports = { createProfile }
