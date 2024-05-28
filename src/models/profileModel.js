@@ -44,7 +44,12 @@ const profileSchema = new Schema({
   education: { type: [educationSchema], required: true },
   skills: { type: [skillsSchema], required: true },
   languages: { type: [String], required: true },
-  links: { type: [linksSchema], required: true }
+  links: { type: [linksSchema], required: true },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
+  //ref to User for relating profile to paricular user
 });
 
 const Profile = mongoose.model('Profile', profileSchema);
