@@ -69,4 +69,4 @@ const SAMPLE_USER_DATA = {
   ],
 };
 
-module.exports = { SAMPLE_USER_DATA };
+module.exports = SAMPLE_USER_DATA;

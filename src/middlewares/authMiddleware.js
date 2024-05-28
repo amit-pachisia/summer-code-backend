@@ -1,9 +1,13 @@
-const { EMAIL_REGEX } = require('../utils/constants');
+const { emailValidation } = require('../utils/validations');
 
-function isValidEmail(req, res, next, data) {
+const isValidEmail = (req, res, next, data) => {
   const { email } = req.body;
-  if (EMAIL_REGEX.test(email)) next();
-  else return res.status(422).json({ data });
-}
+  try {
+    emailValidation.parse(email);
+    next();
+  } catch (error) {
+    res.status(422).json({ data });
+  }
+};
 
 module.exports = { isValidEmail };
