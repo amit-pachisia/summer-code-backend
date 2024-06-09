@@ -1,53 +1,28 @@
 const mongoose = require('mongoose');
 const Profile = mongoose.model('Profile');
-const Users = mongoose.model('Users'); // importing User Model
 
-
-/**
- * Create the profile json
- * @param {Object} req
- * @param {Object} res
- * @returns {Object}
- */
-const createProfile = async (req, res) => {
-    try {
-        const {userId} = req.params;
-        const payload = req.body;
-        const instance = new Profile(payload);
-        await instance.save();
-
-        //update user model on creating new profile for associating it with profile
-        // const user = await findByIdAndUpdate(
-        //     userId,
-        //     {profile :  instance._id },
-        //     { new : true }
-        // )
-
-        // if(!user){
-        //     return res.status(404).json({message : 'User not found'});
-        // }
-
-        // commenting above to use it when user Model is in sync
-        res.json({ success: true });
-    } catch ({ message }) {
-        res.send({ error: true, message });
-    }
+const getUserProfiles = async(req,res) => {
+  try{
+    const users = await Profile.find({});
+    res.status(200).json(users);
+  } catch ({message}) {
+    res.send({error : true, message})
+  }
 };
 
 const getUserProfile = async(req,res) => {
     try{
         const { userId } = req.params;
-        const user = await Users.findById(userId).populate('profile').exec;
-
+        const user = await Profile.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
           }
           
-          res.status(200).json(user.profile);
+          res.status(200).json(user);
     }
     catch({message}) {
         res.send({error : true, message})
     }
 }
 
-module.exports = { createProfile }
+module.exports = { getUserProfiles, getUserProfile }
