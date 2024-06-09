@@ -2,17 +2,22 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const authRoutes = require('./src/routes/authRoute');
-const userSignupRoutes = require('./src/routes/userSignupRoute');
 const connectToDB = require('./src/configs/db');
+const path = require('path');
+const fs = require('fs');
 
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors());
 
-app.use('/auth', authRoutes);
-app.use('/signup', userSignupRoutes);
+// Dynamically import and use routes
+const routesPath = path.join(__dirname, 'src', 'routes');
+fs.readdirSync(routesPath).forEach(file => {
+  const route = require(path.join(routesPath, file));
+  const routePath = `/${file.replace('.js', '')}`;
+  app.use(routePath, route);
+});
 
 app.get('/', (_, res) => {
   res.send('Hello World!');
