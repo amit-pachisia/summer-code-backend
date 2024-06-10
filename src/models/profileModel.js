@@ -46,7 +46,8 @@ const profileSchema = new Schema({
   education: { type: [educationSchema], },
   skills: { type: [skillsSchema] },
   languages: { type: [String] },
-  links: { type: [linksSchema] }
+  links: { type: [linksSchema] },
+  isDeleted : {type : Boolean, default : false}
   //ref to User for relating profile to paricular user
 });
 
