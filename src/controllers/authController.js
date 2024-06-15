@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const hashUtils = require('../utils/hashUtils');
 const User = require('../models/profileModel');
 
-
 const register = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
   try {
