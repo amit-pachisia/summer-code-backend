@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Profile = mongoose.model('Profile');
 
-const getUserProfiles = async (req, res) => {
+const getUserProfiles = async (_, res) => {
   try {
     const users = await Profile.find({ isDeleted: false });
     res.status(200).json(users);
