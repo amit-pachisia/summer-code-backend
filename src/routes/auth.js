@@ -8,7 +8,7 @@ router.post(
   (req, res, next) =>
     isValidEmail(req, res, next, {
       err: 'INVALID_FORMAT_EMAIL',
-      errMessage: 'The email address provided is Invalid.',
+      message: 'The email address provided is Invalid.',
     }),
   register
 );
@@ -18,7 +18,7 @@ router.post(
   (req, res, next) =>
     isValidEmail(req, res, next, {
       err: 'INVALID_FORMAT_EMAIL',
-      errMessage: 'The email address provided is Invalid.',
+      message: 'The email address provided is Invalid.',
     }),
   login
 );
