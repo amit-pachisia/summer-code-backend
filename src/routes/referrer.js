@@ -10,7 +10,7 @@ router.post(
   (req, res, next) =>
     validateBody(req, res, next, {
       err: 'INCOMPLETE_DETAILS',
-      errMessage: 'The fields provided are incomplete or incorrect',
+      message: 'The fields provided are incomplete or incorrect',
     }),
   postReferrerInfoDetails
 );
