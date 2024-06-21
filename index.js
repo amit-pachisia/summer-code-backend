@@ -13,7 +13,7 @@ app.use(cors());
 
 // Dynamically import and use routes
 const routesPath = path.join(__dirname, 'src', 'routes');
-fs.readdirSync(routesPath).forEach(file => {
+fs.readdirSync(routesPath).forEach((file) => {
   const route = require(path.join(routesPath, file));
   const routePath = `/${file.replace('.js', '')}`;
   app.use(routePath, route);
