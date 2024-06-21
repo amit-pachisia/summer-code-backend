@@ -1,5 +1,21 @@
 const jwt = require('jsonwebtoken');
 const { Referrer } = require('../models/referrerModel');
+const Profile  = require('./../models/profileModel');
+
+const getReferrerInfoDetails = async(_,res) =>{
+  try{
+    const referrers = await Profile.find();
+    const updatedReferrers = referrers.map(referrer=> ({
+       firstName: referrer.firstName,
+       lastName: referrer.lastName,
+       email: referrer.email
+    }))
+    res.status(200).json(updatedReferrers);
+  }
+  catch({message}){
+     res.send({error:true, message});
+  }
+}
 
 const postReferrerInfoDetails = async (req, res) => {
   const { firstName, email, referralCode, jobTitle, companyName } = req.body;
@@ -38,4 +54,7 @@ const postReferrerInfoDetails = async (req, res) => {
   }
 };
 
-module.exports = { postReferrerInfoDetails };
+
+
+module.exports = { postReferrerInfoDetails,getReferrerInfoDetails };
+
