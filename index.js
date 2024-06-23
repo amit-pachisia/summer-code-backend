@@ -1,10 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const connectToDB = require('./src/configs/db');
 const app = express();
 const authRoutes = require('./src/routes/authRoute');
 const userSignupRoutes = require('./src/routes/userSignupRoute');
-const connectToDB = require('./src/configs/db');
+const companyRoutes = require('./src/routes/companyRoute')
+
 
 const port = process.env.PORT || 3000;
 
@@ -13,6 +15,7 @@ app.use(cors());
 
 app.use('/auth', authRoutes);
 app.use('/signup', userSignupRoutes);
+app.use('/company', companyRoutes )
 
 app.get('/', (_, res) => {
   res.send('Hello World!');
