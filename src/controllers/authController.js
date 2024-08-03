@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const hashUtils = require('../utils/hashUtils');
 const User = require('../models/profileModel');
 
-
 const register = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
   try {
@@ -19,7 +18,14 @@ const register = async (req, res) => {
     });
     await user.save();
     const token = jwt.sign(
-      { id: user.id, email: user.email },
+      {
+        id: user.id,
+        userInfo: {
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+        },
+      },
       process.env.JWT_SECRET,
       { expiresIn: '30d' }
     );
@@ -55,9 +61,18 @@ const login = async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    const token = jwt.sign({ id: user.id, email }, process.env.JWT_SECRET, {
-      expiresIn: '30d',
-    });
+    const token = jwt.sign(
+      {
+        id: user.id,
+        userInfo: {
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+        },
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: '30d' }
+    );
     res.json({ token, data: { email }, message: 'User found' });
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
